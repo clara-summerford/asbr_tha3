@@ -1,0 +1,68 @@
+% step 1: point cloud registration 
+
+% folder = 
+
+filePattern = fullfile('HW3-PA1', ['*', 'calbody']);
+files = dir(filePattern);
+
+% testing with one file at a time
+fname1 = 'pa1-debug-a-calreadings.txt';
+file1 = readmatrix(fname1);
+
+fid = fopen(fname1, 'r');
+header = strip(strsplit(fgetl(fid),","));
+fclose(fid);
+
+% extracting variables from txt file header
+Nd = str2double(header(1));
+Na = str2double(header(2));
+Nc = str2double(header(3));
+Nframes = str2double(header(4));
+
+split_ind = Nd+Na+Nc;
+
+d_coords = cell(1,Nframes);
+a_coords = cell(1,Nframes);
+c_coords = cell(1,Nframes);
+
+
+for i = 1:Nframes
+    % fprintf('Iteration %d', i)
+    start = ((i-1)*split_ind)+1;
+
+    d_coords{i} = file1(start:start+Nd-1,:);
+    a_coords{i} = file1(start+Nd:start+Nd+Na-1,:);
+    c_coords{i} = file1(start+Nd+Na:start+Nd+Na+Nc-1, :);
+end
+
+
+% testing with correspondence based algorithm between frames 1 and 2 for
+% optical tracking (a_coords)
+
+frame_a = a_coords{1};
+frame_b = a_coords{2};
+pts = length(frame_a);
+
+a_bar = (1/pts)*sum(frame_a,1);
+b_bar = (1/pts)*sum(frame_b,1);
+
+H = zeros([3,3,pts]);
+for i = 1:pts
+   for a = 1:3 
+       for b = 1:3
+           a_tild = frame_a(i,a) - a_bar(a) 
+           b_tild = frame_b(i,b) - b_bar(b)
+           H(a,b,i) = a_tild*b_tild
+       end
+   end
+end
+
+H = sum(H,3)
+
+[U, S, V] = svd(H);
+R = V*U'
+
+% check if determinant of R = 1, algorithm fails if not
+if det(R) ~= 1
+    fprintf("Error! Determinant of R does NOT equal 1")
+end
