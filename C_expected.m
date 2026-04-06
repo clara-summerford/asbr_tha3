@@ -27,6 +27,7 @@ function C_est = C_expected(file1, file2)
     
     % files = [cal_file, body_file];
     
+    % Extract file headers
     fid = fopen(body_file_name, 'r');
     body_header = strip(strsplit(fgetl(fid),","));
     fclose(fid);
@@ -78,7 +79,7 @@ function C_est = C_expected(file1, file2)
         frame_A = a_coords{i};
         [R_A{i}, p_A{i}] = PC_registration(frame_a, frame_A);
     
-        F_D = [R_D{i}, p_D{i}'; zeros(1,3), 1];
+        F_D = [R_D{i}, p_D{i}'; zeros(1,3), 1]
         F_A = [R_A{i}, p_A{i}'; zeros(1,3), 1];
     
         C_est_temp = zeros(size(cal_c_coords));

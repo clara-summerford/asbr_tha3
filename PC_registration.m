@@ -8,7 +8,7 @@
 % Outputs:
 
 % inputs must be nx3 array of points, where each row corresponds to a point
-% at the columns correspond to the xyz values
+% and the columns correspond to the xyz values
 
 function [R, p] = PC_registration(frame_a, frame_b)
 
