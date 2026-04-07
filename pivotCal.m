@@ -1,10 +1,19 @@
-
-% Least-squares method to solve for tool tip position w.r.t. local tool frame
-% and pivot point location w.r.t. tracker
-
-% The least-squares part has been verified against matlab lsqr()
-
-% Assumes F_mat is an array of cells with transf matrices
+%% ME384R - ASBR - THA3
+% Written by Clara Summerford and Nathan Lovell
+%
+% Uses the least-squares method to perform a pivot calibration using the
+% transformation matrices of the probe object as it pivots about a
+% calibration post.
+%
+% Inputs:
+% F_mat = a cell array of 4x4 transformation matrices describing the pose
+% of the probe captured at different instances of pivoting
+%
+% Outputs:
+% b_tip = the position of the tip of the probe with respect to the local
+% probe coordinate frame
+% b_post = the position of the dimple in the calibration post with respect
+% to the sensor's coordinate frame
 
 function [b_tip, b_post] = pivotCal(F_mat)
 

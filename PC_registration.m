@@ -1,4 +1,4 @@
-%% ME384R - ASBR - THA2
+%% ME384R - ASBR - THA3
 % Written by Clara Summerford and Nathan Lovell
 %
 % Calculates transformation between two point cloud sets. 
@@ -33,12 +33,12 @@ function [R, p] = PC_registration(frame_a, frame_b)
     [U, ~, V] = svd(H);
     R = V*U';
     
-    % check if determinant of R = 1, algorithm fails if not
-    if round(det(R),4) ~= 1.0000
-        fprintf("Error! Determinant of R does NOT equal 1.")
-    else
-        fprintf("R is a valid rotation matrix.")
-    end
+    % % check if determinant of R = 1
+    % if round(det(R),4) ~= 1.0000
+    %     fprintf("Error! Determinant of R does NOT equal 1.")
+    % else
+    %     fprintf("R is a valid rotation matrix.")
+    % end
 
     p = (b_bar' - R*a_bar')';
 

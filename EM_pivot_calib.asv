@@ -6,13 +6,9 @@
 % problem formulation is given in THA3 PA1). Input files must be of the 
 % form outlined in THA3 PA1. 
 %
-% The output of this script is two vectors, calculated using the least-squares 
-% pivot calibration method:
-% b_tip = the position of the tip of the EM probe with respect to the local
-% probe coordinate frame (defined at the centroid of the probe's EM tracker
-% points)
-% b_post = the position of the dimple in the calibration post with respect
-% to the EM tracker's coordinate frame
+% The output of this script is two vectors:
+% b
+
 
 clear
 clc
