@@ -2,11 +2,16 @@
 % Written by Clara Summerford and Nathan Lovell
 
 % Need reference for least-squares algorithm bc I got that from gemini
+% (just compare against lsqr())
 
 % Inputs:
 % Ei and Si in quaternion and position vector form
 % i must all be the same
 % Using quaternion method
+
+% Outputs:
+% X = calibration matrix - a transformation matrix describing the position
+% of the sensor with respect to the end-efffector of the robot
 
 function X = eyeInHandCalib(q_robot,q_sensor,t_robot,t_sensor)
 
@@ -103,7 +108,7 @@ function X = eyeInHandCalib(q_robot,q_sensor,t_robot,t_sensor)
 
 
     %%% Assemble Calibration matrix, X
-    
+
     X = [R_X t_X; zeros(1,3) 1];
 
 end
