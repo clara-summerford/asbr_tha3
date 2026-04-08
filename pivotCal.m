@@ -32,7 +32,7 @@ function [b_tip, b_post] = pivotCal(F_mat)
 
         % Build stacked matrices
         A_stack = [A_stack;A];
-        b_stack = [b_stack;p_k];
+        b_stack = [b_stack;-p_k];
     
     end
 
