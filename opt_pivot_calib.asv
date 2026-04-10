@@ -63,14 +63,17 @@ function [b_tip,b_post] = opt_pivot_calib(file,cal_file)
     for i = 1:Nframes
         % Register d_coords and D_coords to get F_D
         [R_D, p_D] = PC_registration(d_coords,D_coords{i});
-        F_D{i} = [R_D, p_D'; zeros(1,3), 1];
+        F_D{i} = [R_D, p_D'; zeros(1,3), 1]
     end
+    
+    % All F_D's are the same, so keep the first one
+    %F_D = F_D{1};
     
     % Transform H_coords into EM tracker coordinates using F_D
     for i = 1:Nframes
         for k = 1:Nh
             H = [H_coords{i}(k,:) 1]; % Homogenous representation of first tracker point
-            Hd = inv(F_D{i})*H'; % Hd = point H in EM tracker coordinates
+            Hd = inv(F_D)*H'; % Hd = point H in EM tracker coordinates
             Hd(end) = [];
             Hd_coords{i}(k,:) = Hd'; % Store coordinates in new cell array
         end
