@@ -14,21 +14,17 @@
 % corresponds to one frame. 
 
 
-function C_est = C_expected(file1, file2)
+function C_exp = C_expected(file1, file2)
 
     % loading cal body data
-    % cal_file_name = 'pa1-debug-a-calbody.txt';
     cal_file_name = file1;
     cal_file = readmatrix(cal_file_name);
     
     % loading cal readings data with multiple frames
-    % body_file_name = 'pa1-debug-a-calreadings.txt';
     body_file_name = file2;
     body_file = readmatrix(body_file_name);
-    
-    % files = [cal_file, body_file];
-    
-    % Extract file headers
+        
+    % extract file headers
     fid = fopen(body_file_name, 'r');
     body_header = strip(strsplit(fgetl(fid),","));
     fclose(fid);
@@ -66,11 +62,11 @@ function C_est = C_expected(file1, file2)
     cal_c_coords = cal_file(cal_Nd+cal_Na+1:end, :);
     
     % looping through all frames and calculating translations
-    [R_D, p_D, R_A, p_A, C_est] = deal(cell(1, Nframes));
+    [R_D, p_D, R_A, p_A] = deal(cell(1, Nframes));
     frame_d = cal_d_coords;
     frame_a = cal_a_coords;
     
-    C_est = [];
+    C_exp = [];
     for i = 1:Nframes
     
         frame_D = d_coords{i};
@@ -85,7 +81,6 @@ function C_est = C_expected(file1, file2)
     
         % empty C_est matrix for each frame
         C_est_temp = zeros(size(cal_c_coords));
-        % disp(size(C_est_temp))
     
         for j = 1:length(cal_c_coords)
     
@@ -98,15 +93,9 @@ function C_est = C_expected(file1, file2)
             C_est_temp(j,:) = C(1:3)/C(4);
         end
 
-        % C_est{i} = C_est_temp;
-
-        C_est = [C_est; C_est_temp];
-        % disp("C_est from C_expected")
-        % disp(C_est)
+        C_exp = [C_exp; C_est_temp];
     
     end
-    % fprintf("C_est:")
-    % disp(C_est)
 
 end % function
 
