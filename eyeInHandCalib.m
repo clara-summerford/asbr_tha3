@@ -1,14 +1,20 @@
 %% ME384R - ASBR - THA3
 % Written by Clara Summerford and Nathan Lovell
-
-% Need reference for least-squares algorithm bc I got that from gemini
-% (just compare against lsqr())
-
+%
+% Performs an eye-in-hand calibration given positions and orientations of a
+% robot end-effect and calibration object (as measured by the in-hand
+% sensor). Orientations must be row vectors in quaternion form. The
+% functions uses SVD and least-squares to solve AX=XB where X is the pose
+% of the sensor with respect to the end-effector. 
+%
 % Inputs:
-% Ei and Si in quaternion and position vector form
-% i must all be the same
-% Using quaternion method
-
+% q_robot = Orientation of robot end_effector with respect to the base
+% frame, in quaternion form
+% q_sensor = Orientation of calibration object with respect to the sensor
+% frame, in quaternion form
+% t_robot = Position of robot end-effector with respect to the base frame
+% t_robot = Position of calibration object with respect to the sensor frame 
+%
 % Outputs:
 % X = calibration matrix - a transformation matrix describing the position
 % of the sensor with respect to the end-efffector of the robot
@@ -108,7 +114,6 @@ function X = eyeInHandCalib(q_robot,q_sensor,t_robot,t_sensor)
 
 
     %%% Assemble Calibration matrix, X
-
     X = [R_X t_X; zeros(1,3) 1];
 
 end

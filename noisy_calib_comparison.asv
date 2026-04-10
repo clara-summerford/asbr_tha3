@@ -46,3 +46,10 @@ t_robot_n_half = t_robot_n(1:5,:);
 t_sensor_n_half = t_sensor_n(1:5,:);
 
 X_n_half = eyeInHandCalib(q_robot_n_half,q_sensor_n_half,t_robot_n_half,t_sensor_n_half)
+
+% % Compare results from the two half-sets
+% error2 = X_half - X_n_half;
+% 
+% % Compare full clean data to half noisy
+% error3 = X - X_n_half;
+

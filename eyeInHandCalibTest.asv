@@ -6,22 +6,8 @@
 % calibration matrix, X_gt, to calculate a set of test matrices B_test.
 % These B_tests are then used to solve the AX=XB problem for the matrix
 % X_test. Finally, the function compares X_gt and X_test for equality.
-% The passing of this test function indicates that the AX=XB solver in
-% eyeInHandCalib is working correctly.
-%
-% Inputs:
-% X_gt = Arbitrary transformation matrix describing a hypothetical
-% configuration of a sensor with respect to the end-effector of a robot.
-% q_robot = Orientation of robot end_effector with respect to the base
-% frame, in quaternion form
-% q_sensor = Orientation of calibration object with respect to the sensor
-% frame, in quaternion form
-% t_robot = Position of robot end-effector with respect to the base frame
-% t_robot = Position of calibration object with respect to the sensor frame
-% 
-% Outputs:
-% test = a boolean; true if the calculated calibration matrix X_test matches 
-% the ground truth matrix X_gt
+% The passing of this test function indicates that the AX
+
 
 
 function [test] = eyeInHandCalibTest(X_gt,q_robot,q_sensor,t_robot,t_sensor)
