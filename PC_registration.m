@@ -5,7 +5,10 @@
 %
 % Inputs: 
 %
-% Outputs:
+% Outputs: 
+% R = rotation matrix corresponding to transformation between two point
+% sets
+% p = 
 
 % inputs must be nx3 array of points, where each row corresponds to a point
 % and the columns correspond to the xyz values
@@ -34,11 +37,9 @@ function [R, p] = PC_registration(frame_a, frame_b)
     R = V*U';
     
     % % check if determinant of R = 1
-    % if round(det(R),4) ~= 1.0000
-    %     fprintf("Error! Determinant of R does NOT equal 1.")
-    % else
-    %     fprintf("R is a valid rotation matrix.")
-    % end
+    if round(det(R),4) ~= 1.0000
+        fprintf("Error! Determinant of R does NOT equal 1. \n")
+    end
 
     p = (b_bar' - R*a_bar')';
 

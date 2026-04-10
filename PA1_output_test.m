@@ -27,19 +27,40 @@ for i = 1:length(body_files)
 
     % calculated expected C coordinates on calibration object
     Cexp = C_expected(body_files{i}, readings_files{i});
-    % disp(size(Cexp))
-    % disp(C_exp(1:4, :))
 
     filename = split(body_files{i}, "-");
-    output_name = filename(1) + "-" + filename(2) + "-" + filename(3) + "-output-test.txt";
+    input_file = filename(1) + "-" + filename(2) + "-" + filename(3) + "-output-test.txt";
+    test_file = filename(1) + "-" + filename(2) + "-" + filename(3) + "-output1.txt";
 
-    % writing values from current file to combined file
+    C_exp = readmatrix(input_file, NumHeaderLines=0);
+    C_real = readmatrix(test_file, NumHeaderLines=1);
+    C_real = C_real(3:end,:);
 
-    fileID = fopen(fullfile('HW3-PA1', output_name),'w');
-    % fprintf(fileID,'%6s %12s\n','x','exp(x)');% fix header
-    fprintf(fileID,'%.2f %.2f %.2f\n',Cexp');
-    fclose(fileID);
+    % disp(size(C_exp))
+    % disp(size(C_real))
+    % disp(C_exp(1:4,:))
+    % disp(C_real(1:4,:))
+
+    % Compare calculated post position to ground truth
+
+    tol = 1.0; % Output file is rounded to this value
+
+    if all(abs(C_exp - C_real) < tol)
+        test = true;
+        disp('Test PASSED')
+    else
+        test = false;
+        disp(filename(3))
+        % fprintf('Failed test: %s', filename(3))
+        
+    end
+
+    assert(all(abs(C_exp - C_real) < tol, 'all'), "ERROR: Calculated post position does not match output file.");
+
+
     
+    
+
 end
 
 
