@@ -20,7 +20,7 @@
 % b_post = the position of the dimple in the calibration post with respect
 % to the EM tracker's coordinate frame
 
-function [b_tip,b_post] = opt_pivot_calib(file,cal_file)
+function [b_tip,b_post] = opt_pivot_calib(file, cal_file)
 
     % Load files
     optpivot_file_name = file;

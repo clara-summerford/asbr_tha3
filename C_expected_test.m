@@ -1,15 +1,11 @@
 %% ME384R - ASBR - THA3
 % Written by Clara Summerford and Nathan Lovell
 %
-% Iterates through generated output files and compares values with given
-% output files.
-
-% inputs must be nx3 array of points, where each row corresponds to a point
-% at the columns correspond to the xyz values
+% Iterates through given cal_body and cal_Readings files, calculating the 
+% expected C coordinates and compares values with given output files.
 
     
-% maybe add HW3-PA1 folder to path here to make program more robust     
-addpath('')
+addpath('HW3-PA1');
 calbody_files = dir(fullfile('HW3-PA1', '*calbody.txt'));
 calreadings_files = dir(fullfile('HW3-PA1', '*calreadings.txt'));
 output_test_files = dir(fullfile('HW3-PA1', '*output1.txt'));
@@ -23,9 +19,8 @@ for i = 1:length(test_files)
     % calculated expected C coordinates on calibration object
     C_exp = C_expected(body_files{i}, readings_files{i}); 
 
+    % import given test files, trimming off pivot calibration data at beginning
     C_real = readmatrix(test_files{i}, NumHeaderLines=1);
-
-    % trimming off pivot calibration data at beginning
     C_real = C_real(3:end,:);
 
     % tolerance of 5.0 needed to pass all given test cases
