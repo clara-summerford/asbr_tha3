@@ -14,6 +14,8 @@ body_files = {calbody_files.name};
 readings_files = {calreadings_files.name};
 test_files = {output_test_files.name};
 
+error = zeros(1, length(test_files));
+
 for i = 1:length(test_files)
   
     % calculated expected C coordinates on calibration object
@@ -22,6 +24,9 @@ for i = 1:length(test_files)
     % import given test files, trimming off pivot calibration data at beginning
     C_real = readmatrix(test_files{i}, NumHeaderLines=1);
     C_real = C_real(3:end,:);
+
+    % optional: plot the error
+    error(i) = max(abs(C_exp - C_real), [], "all");
 
     % tolerance of 5.0 needed to pass all given test cases
     tol = 5.0; 
@@ -37,6 +42,11 @@ for i = 1:length(test_files)
 
 end
 
+bar(error)
+xticklabels({'A','B','C','D','E','F','G'})
+xlabel('Trial')
+ylabel('Error (mm)')
+grid on
 
 
 
