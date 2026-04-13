@@ -13,12 +13,9 @@
 % inputs must be nx3 array of points, where each row corresponds to a point
 % and the columns correspond to the xyz values
 
-function [R, p, ref] = PC_registration(frame_a, frame_b)
+function [R, p] = PC_registration(frame_a, frame_b)
 
     pts = length(frame_a);
-    if length(frame_a) ~= length(frame_b)
-        fprintf('ERROR: Input point sets are not the same size. \n')
-    end
     
     a_bar = (1/pts)*sum(frame_a,1);
     b_bar = (1/pts)*sum(frame_b,1);
@@ -38,22 +35,16 @@ function [R, p, ref] = PC_registration(frame_a, frame_b)
     
     [U, ~, V] = svd(H);
     R = V*U';
-    ref = false;
     
     % check if determinant of R = 1
     if round(det(R),4) ~= 1.0000
-        fprintf("WARNING: Determinant of R does NOT equal 1. \n")
+        fprintf("Error! Determinant of R does NOT equal 1. \n")
+        
+        % accounting for R being a reflection if needed
+        S = svd(H) % check if a singular value is = 0
 
-        % accounting for R being a reflection: check if a singular value is = 0
-        S = svd(H); 
-        if S(1) || S(2) || S(3) == 0
-            fprintf('Accounting for reflection case... \n')
-            V_fix = [V(:,1), V(:,2), -V(:,3)]; % change sign of last column
-            R = V_fix*U';
-            ref = true;
-        else 
-            fprintf('ERROR: SVD algorithm is invalid. \n')
-        end
+        V_fix = [V(:,1), V(:,2), -V(:,3)];
+        R = V_fix*U';
 
     end
 

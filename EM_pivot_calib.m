@@ -18,7 +18,7 @@
 % b_post = the position of the dimple in the calibration post with respect
 % to the EM tracker's coordinate frame
 
-function [b_tip,b_post] = EM_pivot_calib(file)
+function [b_tip,b_post,cnt] = EM_pivot_calib(file)
 
     % Load file
     empivot_file_name = file;
@@ -45,14 +45,21 @@ function [b_tip,b_post] = EM_pivot_calib(file)
     
     % Registration: calculate transformations between g_coords and G_coords for
     % each frame
+    cnt = 0;
     for i = 1:Nframes
         % Point cloud registration between g_coords and G_coords
-        [R,p] = PC_registration(g_coords,G_coords{i});
+        % disp('G_cords')
+        % disp(i)
+        [R,p,ref] = PC_registration(g_coords,G_coords{i});
+        if ref == true
+            cnt = cnt + 1;
+        end
     
         % Assemble transformation matrix and store in a cell
         F_G{i} = [R p'; zeros(1,3) 1];
     end
-    
+
+
     % Perform pivot calibration to determine tip and post locations
     [b_tip, b_post] = pivotCal(F_G);
 
