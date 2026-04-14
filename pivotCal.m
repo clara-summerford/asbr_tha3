@@ -15,14 +15,14 @@
 % b_post = the position of the dimple in the calibration post with respect
 % to the sensor's coordinate frame
 
-function [b_tip, b_post] = pivotCal(F_mat)
+function [b_tip, b_post] = pivotCal(F_cell)
 
     % Initialize stack matrices for least-squares problem
     A_stack = [];
     b_stack = [];
 
-    for k = 1:size(F_mat,2)
-        F = F_mat{k};
+    for k = 1:size(F_cell,2)
+        F = F_cell{k};
 
         % Extract rotation matrices
         R_k = F(1:3,1:3);

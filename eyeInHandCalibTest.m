@@ -43,7 +43,8 @@ function [test] = eyeInHandCalibTest(X_gt,q_robot,q_sensor,t_robot,t_sensor)
     x = 3:10; % x-axis is number of poses used to compute X
 
     plot(x,error_norm,'--ro')
-    legend('Calibration Error')
+    legend('Calibration Error (translation)')
+    title('Convergence of Calibration Error')
     xlabel('Number of Poses Used in Calibration') %
     grid on 
     
@@ -148,9 +149,9 @@ function [test] = eyeInHandCalibTest(X_gt,q_robot,q_sensor,t_robot,t_sensor)
     X_test = [R_X t_X; zeros(1,3) 1];
 
 
-    %%% Compare X_test with X_gt
+    % Compare X_test with X_gt
     tol = 1e-2; % Arbitrary tolerance
-    assert(all(abs(X_gt - X_test) < tol, 'all'), "ERROR: Calculated post position does not match output file.");
+    assert(all(abs(X_gt - X_test) < tol, 'all'), "ERROR: Calculated calibration matrix does not match the ground truth.");
 
     if all(abs(X_gt - X_test) < tol)
         test = true;
