@@ -87,8 +87,7 @@ function [b_tip,b_post,cnt] = opt_pivot_calib(file, cal_file)
         % disp(Hd_coords{i})
 
     end
-    % scatter3(H_coords{1}(:,1), H_coords{1}(:,2), H_coords{1}(:,3))
-
+    
     scatter3(Hd_coords{1}(:,1), Hd_coords{1}(:,2), Hd_coords{1}(:,3))
     scatter3(Hd_coords{2}(:,1), Hd_coords{2}(:,2), Hd_coords{2}(:,3))
 
@@ -96,7 +95,7 @@ function [b_tip,b_post,cnt] = opt_pivot_calib(file, cal_file)
     % Use first frame of data to determine a local "probe" coordinate system
     H0 = sum(Hd_coords{1})/Nh;
     % Centroid of the observed points in frame 1
-    h_coords = [Hd_coords{1}(:,1)-H0(1) Hd_coords{1}(:,2)-H0(2) Hd_coords{1}(:,3)-H0(3)] % Translate observed points
+    h_coords = [Hd_coords{1}(:,1)-H0(1) Hd_coords{1}(:,2)-H0(2) Hd_coords{1}(:,3)-H0(3)]; % Translate observed points
     
     % testing
     % h_coords = [H0(1)-Hd_coords{1}(:,1) H0(2)-Hd_coords{1}(:,2) H0(3)-Hd_coords{1}(:,3)] % Translate observed points

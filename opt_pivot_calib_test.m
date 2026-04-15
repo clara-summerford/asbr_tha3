@@ -12,6 +12,7 @@
 
 clear
 clc
+close all
 
 % Load all files
 optpivot_files = dir(fullfile('HW3-PA1', '*optpivot.txt'));
@@ -42,7 +43,8 @@ for i = 1:size(gt_file,2)
 
     figure
     bar(error_norm)
-    xticklabels({'A','B','C','D','E','F','G'})
+    title('Optical Pivot Calibration Error (Trials a-g)')
+    xticklabels({'a','b','c','d','e','f','g'})
     xlabel('Trial')
     ylabel('Error')
     grid on

@@ -12,6 +12,7 @@
 
 clear
 clc
+close all
 
 % Load all files
 empivot_files = dir(fullfile('HW3-PA1', '*empivot.txt'));
@@ -43,13 +44,14 @@ for i = 1:size(gt_file,2)
     error = b_post - gt_b_post;
     error_norm(i) = norm(error);
     bar(error_norm)
-    xticklabels({'A','B','C','D','E','F','G'})
+    title('EM Pivot Calibration Error (Trials a-g)')
+    xticklabels({'a','b','c','d','e','f','g'})
     xlabel('Trial')
     ylabel('Error')
     grid on
 
     % Compare calculated post position to ground truth
-    tol = 1; % EM sensor approximate random noise, according to PA3
+    tol = 0.3; % EM sensor approximate random noise, according to PA3
     assert(all(abs(b_post - gt_b_post) < tol, 'all'), "ERROR: Calculated post position does not match output file.");
 
     if all(abs(b_post - gt_b_post) < tol)
