@@ -13,9 +13,9 @@
 % X_gt = Arbitrary transformation matrix describing a hypothetical
 % configuration of a sensor with respect to the end-effector of a robot.
 % q_robot = Orientation of robot end_effector with respect to the base
-% frame, in quaternion form
+% frame, in quaternion form [q0, q_vec] (scalar value first!)
 % q_sensor = Orientation of calibration object with respect to the sensor
-% frame, in quaternion form
+% frame, in quaternion form [q0, q_vec] (scalar value first!)
 % t_robot = Position of robot end-effector with respect to the base frame
 % t_robot = Position of calibration object with respect to the sensor frame
 % 
@@ -42,7 +42,7 @@ function [test] = eyeInHandCalibTest(X_gt,q_robot,q_sensor,t_robot,t_sensor)
 
     x = 3:10; % x-axis is number of poses used to compute X
 
-    plot(x,error_norm,'--ro')
+    semilogy(x,error_norm,'--ro')
     legend('Calibration Error (translation)')
     title('Convergence of Calibration Error')
     xlabel('Number of Poses Used in Calibration') %
@@ -150,7 +150,7 @@ function [test] = eyeInHandCalibTest(X_gt,q_robot,q_sensor,t_robot,t_sensor)
 
 
     % Compare X_test with X_gt
-    tol = 1e-2; % Arbitrary tolerance
+    tol = 1e-4; % Arbitrary tolerance
     assert(all(abs(X_gt - X_test) < tol, 'all'), "ERROR: Calculated calibration matrix does not match the ground truth.");
 
     if all(abs(X_gt - X_test) < tol)

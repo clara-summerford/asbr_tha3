@@ -9,9 +9,9 @@
 %
 % Inputs:
 % q_robot = Orientation of robot end_effector with respect to the base
-% frame, in quaternion form
+% frame, in quaternion form [q0, q_vec] (scalar value first!)
 % q_sensor = Orientation of calibration object with respect to the sensor
-% frame, in quaternion form
+% frame, in quaternion form [q0, q_vec] (scalar value first!)
 % t_robot = Position of robot end-effector with respect to the base frame
 % t_robot = Position of calibration object with respect to the sensor frame 
 %
@@ -28,6 +28,8 @@ function X = eyeInHandCalib(q_robot,q_sensor,t_robot,t_sensor)
 
     %%% Calculate Rotation Matrix of X, R_X
     for i = 2:(size(q_robot,1))
+        
+
         % Convert quaternions to rotation matrices
         R1_robot = quatToRot(q_robot(i-1,:)); % Previous robot orientation
         R1_sensor = quatToRot(q_sensor(i-1,:)); % Previous sensor orientation
