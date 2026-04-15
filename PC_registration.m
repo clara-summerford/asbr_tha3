@@ -1,20 +1,23 @@
 %% ME384R - ASBR - THA3
 % Written by Clara Summerford and Nathan Lovell
 %
-% Calculates transformation between two point cloud sets. 
+% Uses a correspondence-based method for finding the transformation between 
+% two point cloud sets.
 %
 % Inputs: 
+% frame_a, frame_b = an nx3 array of points where columns are xyz values.
+% This function assumes that the row indices give the correspondence
+% between the sets of points
 %
 % Outputs: 
-% R = rotation matrix corresponding to transformation between two point
+% R = rotation matrix corresponding to transformation between the two point
 % sets
-% p = 
-
-% inputs must be nx3 array of points, where each row corresponds to a point
-% and the columns correspond to the xyz values
+% p = translation vector corresponding to transformation between the two point
+% sets
 
 function [R, p, ref] = PC_registration(frame_a, frame_b)
 
+    % Filter to reject frames of unequal size
     pts = length(frame_a);
     if length(frame_a) ~= length(frame_b)
         fprintf('ERROR: Input point sets are not the same size. \n')
@@ -36,6 +39,7 @@ function [R, p, ref] = PC_registration(frame_a, frame_b)
     
     H = sum(H,3);
     
+    % Calculate R using singular value decomposition
     [U, ~, V] = svd(H);
     R = V*U';
     ref = false;
@@ -57,6 +61,7 @@ function [R, p, ref] = PC_registration(frame_a, frame_b)
 
     end
 
+    % Output translation vector
     p = (b_bar' - R*a_bar')';
 
 end

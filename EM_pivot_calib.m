@@ -48,8 +48,6 @@ function [b_tip,b_post,cnt] = EM_pivot_calib(file)
     cnt = 0;
     for i = 1:Nframes
         % Point cloud registration between g_coords and G_coords
-        % disp('G_cords')
-        % disp(i)
         [R,p,ref] = PC_registration(g_coords,G_coords{i});
         if ref == true
             cnt = cnt + 1;
