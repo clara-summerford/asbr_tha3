@@ -20,7 +20,7 @@
 % b_post = the position of the dimple in the calibration post with respect
 % to the EM tracker's coordinate frame
 
-function [b_tip,b_post,cnt] = opt_pivot_calib(file, cal_file)
+function [b_tip,b_post,cnt] = opt_pivot_cal(file, cal_file)
 
     % Load files
     optpivot_file_name = file;
@@ -84,24 +84,13 @@ function [b_tip,b_post,cnt] = opt_pivot_calib(file, cal_file)
             Hd(end) = []; % deleting homogenous representation (1 at end of vector)
             Hd_coords{i}(k,:) = Hd'; % Store coordinates in new cell array
         end
-        % disp(Hd_coords{i})
 
     end
-    
-    scatter3(Hd_coords{1}(:,1), Hd_coords{1}(:,2), Hd_coords{1}(:,3))
-    scatter3(Hd_coords{2}(:,1), Hd_coords{2}(:,2), Hd_coords{2}(:,3))
-
     
     % Use first frame of data to determine a local "probe" coordinate system
     H0 = sum(Hd_coords{1})/Nh;
     % Centroid of the observed points in frame 1
     h_coords = [Hd_coords{1}(:,1)-H0(1) Hd_coords{1}(:,2)-H0(2) Hd_coords{1}(:,3)-H0(3)]; % Translate observed points
-    
-    % testing
-    % h_coords = [H0(1)-Hd_coords{1}(:,1) H0(2)-Hd_coords{1}(:,2) H0(3)-Hd_coords{1}(:,3)] % Translate observed points
-    
-    scatter3(h_coords(:,1), h_coords(:,2), h_coords(:,2))
-
 
     % Registration: calculate transformations between h_coords and Hd_coords for
     % each frame
@@ -109,9 +98,6 @@ function [b_tip,b_post,cnt] = opt_pivot_calib(file, cal_file)
     for i = 1:Nframes
         % Point cloud registration between h_coords and Hd_coords
         [R,p,ref] = PC_registration(h_coords,Hd_coords{i});
-
-        % testing
-        % [R,p,ref] = PC_registration(Hd_coords{i}, h_coords);
 
         if ref == true
             cnt = cnt + 1;
