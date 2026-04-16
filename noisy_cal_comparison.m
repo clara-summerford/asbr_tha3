@@ -30,8 +30,8 @@ for i = 1:size(q_robot,1)
 end
 
 % Perform calibrations
-X = eyeInHandCalib(q_robot,q_sensor,t_robot,t_sensor)
-X_noisy = eyeInHandCalib(q_robot_n,q_sensor_n,t_robot_n,t_sensor_n)
+X = eye_in_hand_calib(q_robot,q_sensor,t_robot,t_sensor)
+X_noisy = eye_in_hand_calib(q_robot_n,q_sensor_n,t_robot_n,t_sensor_n)
 
 %%
 
@@ -41,7 +41,7 @@ q_sensor_half = q_sensor(1:5,:);
 t_robot_half = t_robot(1:5,:);
 t_sensor_half = t_sensor(1:5,:);
 
-X_half = eyeInHandCalib(q_robot_half,q_sensor_half,t_robot_half,t_sensor_half)
+X_half = eye_in_hand_calib(q_robot_half,q_sensor_half,t_robot_half,t_sensor_half)
 
 
 % Repeat noisy calibration, with the first half of the data
@@ -50,4 +50,4 @@ q_sensor_n_half = q_sensor_n(1:5,:);
 t_robot_n_half = t_robot_n(1:5,:);
 t_sensor_n_half = t_sensor_n(1:5,:);
 
-X_n_half = eyeInHandCalib(q_robot_n_half,q_sensor_n_half,t_robot_n_half,t_sensor_n_half)
+X_n_half = eye_in_hand_calib(q_robot_n_half,q_sensor_n_half,t_robot_n_half,t_sensor_n_half)

@@ -27,14 +27,8 @@ ref_cnt = zeros(1,length(gt_file));
 for i = 1:size(gt_file,2)
 
     % Perform pivot calibration
-    [b_tip,b_post, ref_cnt(i)] = EM_pivot_calib(file{i});
+    [b_tip,b_post, ref_cnt(i)] = EM_pivot_cal(file{i});
     b_post = b_post'; % Transpose
-
-    % optional: count reflected points
-    % cnt = 0;
-    % if ref == true
-    %     cnt = cnt + 1;
-    % end
 
     % Load ground truth from 'output.txt' file
     output_file = readmatrix(gt_file{i},"NumHeaderLines",1);
@@ -47,7 +41,7 @@ for i = 1:size(gt_file,2)
     title('EM Pivot Calibration Error (Trials a-g)')
     xticklabels({'a','b','c','d','e','f','g'})
     xlabel('Trial')
-    ylabel('Error')
+    ylabel('Error [mm]')
     grid on
 
     % Compare calculated post position to ground truth

@@ -27,7 +27,7 @@ ref_cnt = zeros(1,length(gt_file));
 for i = 1:size(gt_file,2)
 
     % Perform pivot calibration
-    [b_tip,b_post,ref_cnt(i)] = opt_pivot_calib(file{i},cal_file{i});
+    [b_tip,b_post,ref_cnt(i)] = opt_pivot_cal(file{i},cal_file{i});
     b_post = b_post'; % Transpose
 
     % Load ground truth from 'output.txt' file
@@ -38,12 +38,11 @@ for i = 1:size(gt_file,2)
     error = b_post - gt_b_post;
     error_norm(i) = norm(error);
 
-    figure
     bar(error_norm)
     title('Optical Pivot Calibration Error (Trials a-g)')
     xticklabels({'a','b','c','d','e','f','g'})
     xlabel('Trial')
-    ylabel('Error')
+    ylabel('Error [mm]')
     grid on
 
     % Compare calculated post position to ground truth

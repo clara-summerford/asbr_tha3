@@ -71,10 +71,6 @@ function [b_tip,b_post,cnt] = opt_pivot_cal(file, cal_file)
         [R_D, p_D, ref] = PC_registration(d_coords,D_coords{i});
         F_D{i} = [R_D, p_D'; zeros(1,3), 1];
     end
-    
-    figure
-    hold on
-    view(3)
 
     % Transform H_coords into EM tracker coordinates using F_D
     for i = 1:Nframes
@@ -108,6 +104,6 @@ function [b_tip,b_post,cnt] = opt_pivot_cal(file, cal_file)
     end
     
     % Perform pivot calibration to determine tip and post locations
-    [b_tip, b_post] = pivotCal(F_H);
+    [b_tip, b_post] = pivot_cal(F_H);
 
 end

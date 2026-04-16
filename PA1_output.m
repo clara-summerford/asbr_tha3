@@ -24,8 +24,8 @@ opt_pivot_files = {optpivot_files.name};
 for i = 1:length(body_files)
   
     % include pivot calibrations in output file
-    [~, EM_post] = EM_pivot_calib(EM_pivot_files{i});
-    [~, opt_post] = opt_pivot_calib(opt_pivot_files{i}, body_files{i});
+    [~, EM_post] = EM_pivot_cal(EM_pivot_files{i});
+    [~, opt_post] = opt_pivot_cal(opt_pivot_files{i}, body_files{i});
 
     % calculated expected C coordinates on calibration object
     Cexp = C_expected(body_files{i}, readings_files{i});

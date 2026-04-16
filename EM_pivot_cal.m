@@ -57,8 +57,7 @@ function [b_tip,b_post,cnt] = EM_pivot_cal(file)
         F_G{i} = [R p'; zeros(1,3) 1];
     end
 
-
     % Perform pivot calibration to determine tip and post locations
-    [b_tip, b_post] = pivotCal(F_G);
+    [b_tip, b_post] = pivot_cal(F_G);
 
 end
