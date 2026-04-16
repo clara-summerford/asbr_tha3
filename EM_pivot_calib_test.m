@@ -49,7 +49,7 @@ for i = 1:size(gt_file,2)
     grid on
 
     % Compare calculated post position to ground truth
-    tol = 1; % EM sensor approximate random noise, according to PA3
+    tol = 0.3; % EM sensor approximate random noise, according to PA3
     assert(all(abs(b_post - gt_b_post) < tol, 'all'), "ERROR: Calculated post position does not match output file.");
 
     if all(abs(b_post - gt_b_post) < tol)

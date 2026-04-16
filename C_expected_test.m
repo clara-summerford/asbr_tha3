@@ -46,6 +46,7 @@ bar(error)
 xticklabels({'A','B','C','D','E','F','G'})
 xlabel('Trial')
 ylabel('Error (mm)')
+title('C_{exp} Error (Trials a-g)')
 grid on
 
 

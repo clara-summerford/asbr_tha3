@@ -89,19 +89,26 @@ function [b_tip,b_post,cnt] = opt_pivot_calib(file, cal_file)
     end
     % scatter3(H_coords{1}(:,1), H_coords{1}(:,2), H_coords{1}(:,3))
 
-    scatter3(Hd_coords{1}(:,1), Hd_coords{1}(:,2), Hd_coords{1}(:,3))
-    scatter3(Hd_coords{2}(:,1), Hd_coords{2}(:,2), Hd_coords{2}(:,3))
+    scatter3(Hd_coords{1}(:,1), Hd_coords{1}(:,2), Hd_coords{1}(:,3),'filled')
+    scatter3(Hd_coords{2}(:,1), Hd_coords{2}(:,2), Hd_coords{2}(:,3),'filled')
+    scatter3(Hd_coords{3}(:,1), Hd_coords{3}(:,2), Hd_coords{3}(:,3),'magenta','filled')
+    xlabel('x (mm)')
+    ylabel('y (mm)')
+    zlabel('z (mm)')
+    legend('Frame 1', 'Frame 2', 'Frame 3')
+    title('Optical Probe in the Optical Sensor Frame')
+    % scatter3(Hd_coords{4}(:,1), Hd_coords{4}(:,2), Hd_coords{4}(:,3))
+    % scatter3(Hd_coords{5}(:,1), Hd_coords{5}(:,2), Hd_coords{5}(:,3))
+    
 
     
     % Use first frame of data to determine a local "probe" coordinate system
     H0 = sum(Hd_coords{1})/Nh;
     % Centroid of the observed points in frame 1
-    h_coords = [Hd_coords{1}(:,1)-H0(1) Hd_coords{1}(:,2)-H0(2) Hd_coords{1}(:,3)-H0(3)] % Translate observed points
+    h_coords = [Hd_coords{1}(:,1)-H0(1) Hd_coords{1}(:,2)-H0(2) Hd_coords{1}(:,3)-H0(3)]; % Translate observed points
     
-    % testing
-    % h_coords = [H0(1)-Hd_coords{1}(:,1) H0(2)-Hd_coords{1}(:,2) H0(3)-Hd_coords{1}(:,3)] % Translate observed points
-    
-    scatter3(h_coords(:,1), h_coords(:,2), h_coords(:,2))
+
+    % scatter3(h_coords(:,1), h_coords(:,2), h_coords(:,2))
 
 
     % Registration: calculate transformations between h_coords and Hd_coords for

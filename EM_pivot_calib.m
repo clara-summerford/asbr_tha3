@@ -63,4 +63,8 @@ function [b_tip,b_post,cnt] = EM_pivot_calib(file)
     % Perform pivot calibration to determine tip and post locations
     [b_tip, b_post] = pivotCal(F_G);
 
+    % plotting pivot markers for debugging
+    figure
+    scatter3()
+
 end
