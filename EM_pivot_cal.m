@@ -18,7 +18,7 @@
 % b_post = the position of the dimple in the calibration post with respect
 % to the EM tracker's coordinate frame
 
-function [b_tip,b_post,cnt] = EM_pivot_calib(file)
+function [b_tip,b_post,cnt] = EM_pivot_cal(file)
 
     % Load file
     empivot_file_name = file;

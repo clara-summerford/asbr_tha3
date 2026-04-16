@@ -24,7 +24,7 @@
 % the ground truth matrix X_gt
 
 
-function [test] = eyeInHandCalibTest(X_gt,q_robot,q_sensor,t_robot,t_sensor)
+function [test] = eye_in_hand_cal_test(X_gt,q_robot,q_sensor,t_robot,t_sensor)
 
     % Example: random calibration matrix for verifying AX=XB algorithm
     % X_gt = [1 0 0 1; 0 1 0 1; 0 0 1 1; 0 0 0 1]; % Ground truth

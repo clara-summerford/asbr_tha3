@@ -19,7 +19,7 @@
 % X = calibration matrix - a transformation matrix describing the position
 % of the sensor with respect to the end-efffector of the robot
 
-function X = eyeInHandCalib(q_robot,q_sensor,t_robot,t_sensor)
+function X = eye_in_hand_cal(q_robot,q_sensor,t_robot,t_sensor)
 
     % Initialization
     M = [];
