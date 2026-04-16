@@ -26,7 +26,8 @@ for i = 1:length(test_files)
     C_real = C_real(3:end,:);
 
     % optional: plot the error
-    error(i) = max(all(abs(C_exp-C_real)));
+    error(i) = max(vecnorm(C_exp - C_real, 2, 2));
+
 
     % tolerance of 5.0 needed to pass all given test cases
     tol = 5.0; 
@@ -42,11 +43,11 @@ for i = 1:length(test_files)
 
 end
 
-    bar(error_norm)
-    xticklabels({'A','B','C','D','E','F','G'})
-    xlabel('Trial')
-    ylabel('Error')
-    grid on
+bar(error)
+xticklabels({'A','B','C','D','E','F','G'})
+xlabel('Trial')
+ylabel('Error (mm)')
+grid on
 
 
 

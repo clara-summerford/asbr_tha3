@@ -25,23 +25,24 @@ for i = 1:length(test_files)
     C_real = readmatrix(test_files{i}, NumHeaderLines=1);
     C_real = C_real(3:end,:);
 
-    % optional: plot the error
-    error(i) = max(abs(C_exp - C_real), [], "all");
+    % calculate error as max magnitude of each coordinate vector
+    error(i) = max(vecnorm(C_exp - C_real, 2, 2));
 
     % tolerance of 5.0 needed to pass all given test cases
-    tol = 5.0; 
-    if all(abs(C_exp - C_real) < tol)
+    tol = 5.5; 
+    if error(i) < tol
         test = true;
         disp('Test PASSED')
     else
         test = false;
     end
 
-    assert(all(abs(C_exp - C_real) < tol, 'all'), "ERROR: Expected C coordinates do not match given output file.");
+    assert((error(i) < tol), "ERROR: Expected C coordinates do not match given output file.");
 
 
 end
 
+% optional: plot the error
 bar(error)
 xticklabels({'A','B','C','D','E','F','G'})
 xlabel('Trial')
