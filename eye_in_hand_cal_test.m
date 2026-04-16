@@ -32,7 +32,7 @@ function [test] = eye_in_hand_cal_test(X_gt,q_robot,q_sensor,t_robot,t_sensor)
 
     %%% Plot calibration error converging with more poses
     for i = 2:(size(q_robot,1))
-        Xcell{i-1} = eye_in_hand_calib(q_robot(1:i,:),q_sensor(1:i,:),t_robot(1:i,:),t_sensor(1:i,:));
+        Xcell{i-1} = eye_in_hand_cal(q_robot(1:i,:),q_sensor(1:i,:),t_robot(1:i,:),t_sensor(1:i,:));
     end
 
     for i = 1:(size(Xcell,2)-1)
@@ -43,7 +43,7 @@ function [test] = eye_in_hand_cal_test(X_gt,q_robot,q_sensor,t_robot,t_sensor)
     x = 3:10; % x-axis is number of poses used to compute X
 
     semilogy(x,error_norm,'--ro')
-    legend('Calibration Error (translation)')
+    legend('Calibration Error, mm (translation)')
     title('Convergence of Calibration Error')
     xlabel('Number of Poses Used in Calibration') %
     grid on 
