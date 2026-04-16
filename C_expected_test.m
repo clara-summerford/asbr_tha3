@@ -26,7 +26,9 @@ for i = 1:length(test_files)
     C_real = C_real(3:end,:);
 
     % optional: plot the error
-    error(i) = max(abs(C_exp - C_real), [], "all");
+    % error(i) = max(abs(C_exp - C_real), [], "all");
+    error(i) = max(vecnorm(C_exp - C_real, 2, 2));
+
 
     % tolerance of 5.0 needed to pass all given test cases
     tol = 5.0; 

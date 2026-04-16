@@ -14,7 +14,7 @@
 % corresponds to one frame. 
 
 
-function C_exp = C_expected(file1, file2)
+function [C_exp, C_coords] = C_expected(file1, file2)
 
     % loading cal body data
     calbody_file_name = file1;
